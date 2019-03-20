@@ -10,7 +10,7 @@ labels: null
 containers:
     -
         name: postgres
-image: enefro-database
+image: postgres
 ports:
     -
         containerPort: 5432
