@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
       matchLabels:
-        app: autos-services
+        app: autos-service
         tier: backend
         track: stable
   replicas: 3
