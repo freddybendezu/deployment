@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: gerenciariesgos-webapp
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: gerenciariesgos-webapp
+      labels:
+        app: gerenciariesgos-webapp
+    spec:
+      containers:
+      - name: gerenciariesgos-webapp
+        env:
+          - name: SERVICE_AUTOS_URL
+            valueFrom:
+              configMapKeyRef:
+                name: gerenciariesgos-webapp-config
+                key: service_autos_url
+          - name: SERVICE_COTIZADOR_URL
+            valueFrom:
+              configMapKeyRef:
+                name: gerenciariesgos-webapp-config
+                key: cotizador_autos_url
+        image: freddybendezu/gerenciariesgos-webapp
