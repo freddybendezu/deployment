@@ -1,3 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cotizacion-service-config
+  namespace: default
+data:
+  pacifico_cotizacion_url: https://servicios.pacificotest.com.pe:7005/ECOM_CERT/EcommerceAuto/CotizacionWS/serviceRest/Cotizacion/generarCotizacionCompleta
+  pacifico_cotizacion_user: pacifico
+  pacifico_cotizacion_pass: seguros
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
