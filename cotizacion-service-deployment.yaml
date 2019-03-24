@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cotizacion-service
+  namespace: default
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: cotizacion-service
+      labels:
+        app: cotizacion-service
+    spec:
+      containers:
+      - name: cotizacion-service
+        env:
+          - name: PACIFICO_COTIZACION_URL
+            valueFrom:
+              configMapKeyRef:
+                name: cotizacion-service-config
+                key: pacifico_cotizacion_url
+          - name: PACIFICO_COTIZACION_USER
+            valueFrom:
+              configMapKeyRef:
+                name: cotizacion-service-config
+                key: pacifico_cotizacion_user
+          - name: PACIFICO_COTIZACION_PASS
+            valueFrom:
+              configMapKeyRef:
+                name: cotizacion-service-config
+                key: pacifico_cotizacion_pass                
+        image: freddybendezu/cotizacion-service
