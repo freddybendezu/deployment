@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: 2019-03-30T00:01:53Z
+  labels:
+    app: gerenciariesgos-webapp
+  name: gerenciariesgos-webapp-service
+  namespace: default
+  resourceVersion: "2912549"
+  selfLink: /api/v1/namespaces/default/services/gerenciariesgos-webapp-service
+  uid: 0696bb99-527f-11e9-94a8-42010a8e00cf
+spec:
+  clusterIP: 10.19.251.136
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 31759
+    port: 80
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: gerenciariesgos-webapp
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 35.231.137.139
