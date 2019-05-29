@@ -32,7 +32,7 @@ spec:
       volumes:
         - name: clas-riesgos-storage
           persistentVolumeClaim:
-            claimName: clasif-riesgos-pv-claim
+            claimName: clas-riesgos-pv-claim
       containers:
         - image: postgres
           name: clas-riesgos-db
