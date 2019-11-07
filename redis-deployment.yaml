@@ -39,6 +39,6 @@ spec:
           value: "true"
         - name: REDIS_PASS
           valueFrom:
-            secretKeyRef:
+            configMapKeyRef:
               name: redis-secrets
               key: redis_pass
