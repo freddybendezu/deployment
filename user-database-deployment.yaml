@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: user-config
-  namespace: default
+  namespace: produccion
 data:
   postgres_db: USER
   postgres_user: admin
@@ -12,6 +12,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: user-pv-claim
+  namespace: produccion  
 spec:
   accessModes:
     - ReadWriteOnce
@@ -23,6 +24,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: user-db
+  namespace: produccion  
 spec:
   template:
     metadata:
@@ -65,6 +67,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: user-db-service
+  namespace: produccion
 spec:
   type: ClusterIP
   ports:
