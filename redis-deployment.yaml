@@ -17,10 +17,16 @@ metadata:
   name: redis
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      name: redis
+      app: redis
   template:
     metadata:
       labels:
         app: redis
+        name: redis
+        component: cache
     spec:
       containers:
       - name: redis
