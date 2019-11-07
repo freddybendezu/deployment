@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: produccion
+  name: redis-secrets
+data:
+  redis_pass: admin123
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: produccion
+  labels:
+    name: redis
+    component: cache
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+        name: redis
+        component: cache
+    spec:
+      containers:
+      - name: redis
+        image: redis
+        imagePullPolicy: Always
+        args: ["--requirepass", "$(REDIS_PASS)"]
+        ports:
+        - containerPort: 6379
+          name: redis
+        env:
+        - name: MASTER
+          value: "true"
+        - name: REDIS_PASS
+          valueFrom:
+            configMapKeyRef:
+              name: redis-secrets
+              key: redis_pass
