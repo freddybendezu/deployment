@@ -5,7 +5,7 @@ metadata:
   name: redis-secrets
 type: Opaque
 data:
-  redis_pas: admin123
+  redis_pass: admin123
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -41,7 +41,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: redis-secrets
-              key: REDIS_PASS
+              key: redis_pass
 ---
 apiVersion: v1
 kind: Service
