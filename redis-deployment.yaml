@@ -17,9 +17,6 @@ metadata:
   name: redis
 spec:
   replicas: 1
-  selector:
-    matchLabels:
-      name: redis
   template:
     metadata:
       labels:
