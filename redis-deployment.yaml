@@ -23,6 +23,7 @@ spec:
   template:
     metadata:
       labels:
+        app: redis
         name: redis
         component: cache
     spec:
