@@ -60,7 +60,7 @@ spec:
             - containerPort: 5432
               name: clientes-db
           volumeMounts:
-            - name: clientes-gral-storage
+            - name: clientes-storage
               mountPath: /var/lib/postgresql/data
 ---
 apiVersion: v1
