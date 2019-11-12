@@ -1,0 +1,76 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: clientes-general-config
+  namespace: default
+data:
+  postgres_db: CLIENTES
+  postgres_user: admin
+  postgres_password: c1oudc0w
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: clientes-general-pv-claim
+  namespace: default 
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 4Gi
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: clientes-general-db
+  namespace: default 
+spec:
+  template:
+    metadata:
+      labels:
+        app: clientes-general-db
+    spec:
+      volumes:
+        - name: clientes-general-storage
+          persistentVolumeClaim:
+            claimName: clientes-general-pv-claim
+      containers:
+        - image: postgres
+          name: clientes-general-db
+          env:
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: clientes-general-config
+                  key: postgres_db          
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: clientes-general-config
+                  key: postgres_user
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: clientes-general-config
+                  key: postgres_password                 
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+          ports:
+            - containerPort: 5432
+              name: clientes-general-db
+          volumeMounts:
+            - name: clientes-general-storage
+              mountPath: /var/lib/postgresql/data
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: clientes-general-db-service
+  namespace: default 
+spec:
+  type: ClusterIP
+  ports:
+    - port: 5432
+  selector:
+    app: clientes-general-db
